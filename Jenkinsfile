@@ -1,17 +1,19 @@
 pipeline{
-    agent any
-    stages{
-        stage('Build'){
-            steps{
-                echo 'Building Image..'
-                bat 'docker build -t exam_app .'
-            }
-        }
-        stage('Run'){
-            steps{
-                bat 'docker rm -f mycontainer || exit 0'
-                bat 'docker run -d -p 5000:5000 --name mycontainer exam_app'
-            }
-        }
-    }
+	agent any
+	stages{
+	stage('Build'){
+	steps{
+	echo "Build Docker Image"
+	bat "docker build -t mywebappsuma ."
+	}
+	}
+	stage('Run'){
+	steps{
+	echo "Run application in Docker Container"
+	bat "docker rm -f mycontainer || exit 0"
+	bat "docker run -d -p 5001:5001 --name mycontainer mywebappsuma"
+	}
+	}
+	}
+	
 }
